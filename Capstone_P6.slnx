@@ -18,9 +18,11 @@
   <Project Path="Oculus.VR.Scripts.Editor.csproj" />
   <Project Path="Unity.VisualStudio.Editor.csproj" />
   <Project Path="Unity.InputSystem.csproj" />
+  <Project Path="meta.xr.mrutilitykit.editor.csproj" />
   <Project Path="Meta.XR.ImmersiveDebugger.csproj" />
   <Project Path="Unity.XR.CoreUtils.csproj" />
   <Project Path="Unity.Searcher.Editor.csproj" />
+  <Project Path="meta.xr.mrutilitykit.csproj" />
   <Project Path="Oculus.Interaction.Samples.csproj" />
   <Project Path="Unity.VisualScripting.Core.csproj" />
   <Project Path="Oculus.Interaction.Editor.csproj" />
