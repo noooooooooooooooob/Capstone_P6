@@ -2,6 +2,7 @@
   <Project Path="Unity.Timeline.csproj" />
   <Project Path="Meta.XR.MultiplayerBlocks.Shared.csproj" />
   <Project Path="Unity.PlasticSCM.Editor.csproj" />
+  <Project Path="MCPForUnity.Editor.csproj" />
   <Project Path="Meta.XR.BuildingBlocks.csproj" />
   <Project Path="Unity.Timeline.Editor.csproj" />
   <Project Path="Unity.Mathematics.csproj" />
@@ -18,9 +19,11 @@
   <Project Path="Oculus.VR.Scripts.Editor.csproj" />
   <Project Path="Unity.VisualStudio.Editor.csproj" />
   <Project Path="Unity.InputSystem.csproj" />
+  <Project Path="meta.xr.mrutilitykit.editor.csproj" />
   <Project Path="Meta.XR.ImmersiveDebugger.csproj" />
   <Project Path="Unity.XR.CoreUtils.csproj" />
   <Project Path="Unity.Searcher.Editor.csproj" />
+  <Project Path="meta.xr.mrutilitykit.csproj" />
   <Project Path="Oculus.Interaction.Samples.csproj" />
   <Project Path="Unity.VisualScripting.Core.csproj" />
   <Project Path="Oculus.Interaction.Editor.csproj" />
@@ -61,6 +64,7 @@
   <Project Path="Unity.AI.Navigation.csproj" />
   <Project Path="Unity.Collections.CodeGen.csproj" />
   <Project Path="Meta.XR.MetaWand.Editor.csproj" />
+  <Project Path="MCPForUnity.Runtime.csproj" />
   <Project Path="Unity.XR.Management.csproj" />
   <Project Path="Meta.XR.Editor.Guide.About.csproj" />
   <Project Path="Unity.Mathematics.Editor.csproj" />
