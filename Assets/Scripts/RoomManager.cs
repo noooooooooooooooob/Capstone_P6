@@ -10,12 +10,37 @@ using TMPro;
 /// Player A의 실제 방을 MRUK로 스캔하고, Player B가 보게 될 가상 방을 재구성하는 스크립트.
 ///
 /// [실행 흐름]
-///   실기기(Quest) : MRUK로 실제 방 스캔 → JSON 저장 → 방 메시 재구성 → 게임 오브젝트 배치
+///   실기기(Quest) : MRUK.LoadSceneFromDevice(requestSceneCaptureIfNoDataFound:true) 호출
+///                   → 방 데이터 있으면 바로 로드, 없으면 OVRScene.RequestSpaceSetup()으로 시스템 스캔 UI 자동 진입
+///                   → 스캔 완료 후 방 데이터 수신 → JSON 저장 → 방 메시 재구성 → 게임 오브젝트 배치
+///                   → OnRoomReady 이벤트 발행 (네트워킹 등 외부 시스템 연동)
 ///   에디터        : forceDummyRoom 체크 시 더미 방 생성 (크기 직접 지정 가능)
 ///                   MRUK Inspector에서 Data Source = Prefab 설정 시 내장 샘플 방 사용 가능
 /// </summary>
 public class RoomManager : MonoBehaviour
 {
+    public enum ScanPhase
+    {
+        Idle,            // 시작 전
+        Loading,         // MRUK 씬 데이터 로드 중
+        RequestingSetup, // 방 데이터 없음 → Space Setup 요청 전
+        WaitingForSetup, // 시스템 UI에서 방 스캔 진행 중 (사용자 액션 대기)
+        Rebuilding,      // 방 메시 재구성 및 오브젝트 배치 중
+        Done,            // 완료
+        Failed,          // 오류
+    }
+
+    /// <summary>현재 스캔 단계. 외부에서 상태 확인용.</summary>
+    public ScanPhase CurrentPhase { get; private set; } = ScanPhase.Idle;
+
+    /// <summary>스캔 단계가 변경될 때 발행. UI 등 외부 시스템에서 구독 가능.</summary>
+    public event System.Action<ScanPhase> OnScanPhaseChanged;
+
+    /// <summary>
+    /// 방 스캔 및 재구성이 완료되면 발행. 네트워킹 레이어에서 구독하여 방 데이터 전송 트리거로 사용.
+    /// </summary>
+    public event System.Action<MRUKRoom> OnRoomReady;
+
     // 각 표면 타입별 머티리얼. 할당하지 않으면 fallbackMaterial을 기반으로 색상만 바꿔서 자동 생성.
     [Header("Surface Materials")]
     [SerializeField] private Material wallMaterial;
@@ -75,6 +100,14 @@ public class RoomManager : MonoBehaviour
         }
     }
 
+    private void SetPhase(ScanPhase phase)
+    {
+        CurrentPhase = phase;
+        OnScanPhaseChanged?.Invoke(phase);
+        Log($"[Phase] {phase}");
+    }
+
+
     // ── JSON 저장 ─────────────────────────────────────────────────────────────
     // 스캔된 방 데이터를 JSON으로 저장. Quest에서 USB 연결 후 파일 탐색기로 가져올 수 있음.
     // 경로: 내 PC > [Quest 기기] > Internal shared storage > Oculus > VideoShots > room.json
@@ -108,37 +141,69 @@ public class RoomManager : MonoBehaviour
         if (_mruk == null)
         {
             SetStatus("❌ MRUK instance not found\nCheck that MRUK Building Block is in the Scene");
+            SetPhase(ScanPhase.Failed);
             yield break;
         }
 
-        // 실기기에서는 실제 방을 스캔하고, 에디터에서는 MRUK Inspector 설정(Data Source)에 따라 동작
-        SetStatus("Scanning room...");
-        yield return _mruk.LoadSceneFromDevice();
+        // ── 1단계: 방 스캔 (항상 실행) ────────────────────────────────────
+        // 기존 데이터 유무와 관계없이 매번 시스템 Space Setup UI로 진입해 방을 스캔.
+        // OVRScene.RequestSpaceSetup()은 OVRSceneManager(deprecated v65)를 거치지 않는 정식 API.
+        SetPhase(ScanPhase.WaitingForSetup);
+        SetStatus("방 스캔을 시작합니다.\n시스템 UI를 따라 방을 스캔해주세요.");
 
-        // 스캔 결과로 현재 방 앵커 데이터를 가져옴
+#if UNITY_ANDROID && !UNITY_EDITOR
+        var setupTask = OVRScene.RequestSpaceSetup();
+        yield return new WaitUntil(() => setupTask.IsCompleted);
+
+        if (!setupTask.GetResult())
+        {
+            SetStatus("❌ 방 스캔이 취소되었습니다.");
+            SetPhase(ScanPhase.Failed);
+            yield break;
+}
+#endif
+
+        // ── 2단계: 스캔된 데이터 로드 ─────────────────────────────────────
+        SetPhase(ScanPhase.Loading);
+        SetStatus("방 데이터를 불러오는 중...");
+
+        var loadTask = _mruk.LoadSceneFromDevice(requestSceneCaptureIfNoDataFound: false);
+        yield return new WaitUntil(() => loadTask.IsCompleted);
+
+        if (loadTask.IsFaulted)
+        {
+            SetStatus($"❌ 로드 실패: {loadTask.Exception?.GetBaseException().Message}");
+            SetPhase(ScanPhase.Failed);
+            yield break;
+        }
+
+        // ── 3단계: 결과 확인 ───────────────────────────────────────────────
         _room = _mruk.GetCurrentRoom();
         if (_room == null)
         {
-            SetStatus("❌ Scan failed\nQuest Settings > Physical Space > Space Setup");
+            SetStatus("❌ 방 데이터를 찾을 수 없습니다.\nQuest Settings > Physical Space > Space Setup");
+            SetPhase(ScanPhase.Failed);
             yield break;
         }
 
-        // 스캔 성공 시 JSON으로 저장 (실기기 전용, 에디터에서는 경로 오류 발생 가능)
-        SetStatus("✅ Scan complete!");
+        // ── 3단계: JSON 저장 + 방 메시 재구성 + 오브젝트 배치 ──────────────
+        SetStatus("✅ 방 데이터 로드 완료!");
         SaveRoomJson();
         yield return new WaitForSeconds(0.5f);
 
-        // 스캔된 앵커 데이터를 기반으로 방 표면(벽/바닥/천장)을 Quad 메시로 재구성
-        // → 이것이 Player B가 보게 될 방의 시각적 표현
-        SetStatus("Rebuilding room mesh...");
+        SetPhase(ScanPhase.Rebuilding);
+        SetStatus("방 메시를 재구성하는 중...");
         BuildRoomVisuals();
         yield return null;
 
-        // 재구성된 방 안에 퍼즐, 포탈, 터미널 오브젝트 배치
-        SetStatus("Placing game objects...");
+        SetStatus("게임 오브젝트를 배치하는 중...");
         yield return PlaceGameObjects();
 
-        SetStatus($"✅ Done! {_spawned.Count} objects spawned");
+        SetPhase(ScanPhase.Done);
+        SetStatus($"✅ 완료! {_spawned.Count}개 오브젝트 생성됨");
+
+        // 네트워킹 레이어(Photon 등)에서 구독하여 방 데이터 전송 트리거로 사용
+        OnRoomReady?.Invoke(_room);
     }
 
     // ── 방 시각화 ─────────────────────────────────────────────────────────────
