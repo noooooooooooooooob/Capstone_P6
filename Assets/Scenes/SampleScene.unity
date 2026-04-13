@@ -845,7 +845,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &551077188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1695,6 +1695,7 @@ GameObject:
   m_Component:
   - component: {fileID: 939254293}
   - component: {fileID: 939254292}
+  - component: {fileID: 939254294}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -1743,6 +1744,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &939254294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939254291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc5d2171f408fad4e8f6b0d13b519fb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoomShapeSpawner
+  shapeRadius: 0.15
+  floatHeight: 1
+  orbitRadius: 1
+  bedCapsuleHeight: 0
+  shapeMaterial: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  bedCapsuleMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  bobAmplitude: 0.15
+  bobSpeed: 1.5
+  spinSpeed: 30
+  makeGrabbable: 1
+  showDebugLog: 1
 --- !u!1 &1044328830
 GameObject:
   m_ObjectHideFlags: 0
