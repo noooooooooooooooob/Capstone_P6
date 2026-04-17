@@ -143,7 +143,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 146488675}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 60573df22c3da63459160f81a3125e79, type: 3}
   m_Name: 
@@ -1314,9 +1314,57 @@ PrefabInstance:
       value: MRUK
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
+      propertyPath: SceneSettings.RoomPrefabs.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: SceneSettings.EnableHighFidelityScene
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
+      propertyPath: 'SceneSettings.RoomPrefabs.Array.data[0]'
+      value: 
+      objectReference: {fileID: 6240677031976514303, guid: d2f5619c7d04eb6419c63a439824ec5f, type: 3}
+    - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
+      propertyPath: 'SceneSettings.RoomPrefabs.Array.data[1]'
+      value: 
+      objectReference: {fileID: 5618556046422172173, guid: 4b454e8ccd6764ccdbcd91586969863f, type: 3}
+    - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
+      propertyPath: 'SceneSettings.RoomPrefabs.Array.data[2]'
+      value: 
+      objectReference: {fileID: 5618556046422172173, guid: 029ede24e76b24d0888dc235dd0b96f2, type: 3}
+    - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
+      propertyPath: 'SceneSettings.RoomPrefabs.Array.data[3]'
+      value: 
+      objectReference: {fileID: 5618556046422172173, guid: caa3755f1f2184eb7a9fd17b7cf1f1d3, type: 3}
+    - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
+      propertyPath: 'SceneSettings.RoomPrefabs.Array.data[4]'
+      value: 
+      objectReference: {fileID: 1766085727792645261, guid: 989283c9dcb36a24aac11a601001dce0, type: 3}
+    - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
+      propertyPath: 'SceneSettings.RoomPrefabs.Array.data[5]'
+      value: 
+      objectReference: {fileID: 5618556046422172173, guid: b2217186fc11b47638c925d674e7f526, type: 3}
+    - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
+      propertyPath: 'SceneSettings.RoomPrefabs.Array.data[6]'
+      value: 
+      objectReference: {fileID: 5618556046422172173, guid: 531aeca35d703a64cb0e1fd73a128fc0, type: 3}
+    - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
+      propertyPath: 'SceneSettings.RoomPrefabs.Array.data[7]'
+      value: 
+      objectReference: {fileID: 5618556046422172173, guid: 3aaa7f66d6713834ca31af8c3d9bebda, type: 3}
+    - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
+      propertyPath: 'SceneSettings.RoomPrefabs.Array.data[8]'
+      value: 
+      objectReference: {fileID: 5618556046422172173, guid: 1550cf68ffa5a344e881275021bc3ffe, type: 3}
+    - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
+      propertyPath: 'SceneSettings.RoomPrefabs.Array.data[9]'
+      value: 
+      objectReference: {fileID: 5618556046422172173, guid: 31818101cde292945ab80af5d14bec54, type: 3}
+    - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
+      propertyPath: 'SceneSettings.RoomPrefabs.Array.data[10]'
+      value: 
+      objectReference: {fileID: 5618556046422172173, guid: c2bd5595e9fe2493a92d4bc0bb264603, type: 3}
     - target: {fileID: 8047981335285221976, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.59941
@@ -1507,7 +1555,7 @@ MonoBehaviour:
   requestRecordAudioPermissionOnStartup: 0
   requestPassthroughCameraAccessPermissionOnStartup: 0
   _localDimming: 1
-  _trackingOriginType: 1
+  _trackingOriginType: 0
   usePositionTracking: 1
   useRotationTracking: 1
   useIPDInPositionTracking: 1
@@ -2090,6 +2138,86 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1516728338}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1302672025
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1302672027}
+  - component: {fileID: 1302672026}
+  m_Layer: 0
+  m_Name: playerB
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1302672026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302672025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d30778e1d0a7fe24f81ed745bc997a8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerBViewTester
+  viewMode: 1
+  renderWidth: 1280
+  renderHeight: 720
+  cameraFOV: 60
+  screenPosition: {x: 0, y: 1.4, z: 2.4}
+  screenRotation: {x: 0, y: 0, z: 0}
+  screenSize: {x: 1.6, y: 0.9}
+  screenBorderThickness: 0.03
+  autoFacePlayer: 1
+  attachScreenToWall: 1
+  preferredWallIndex: 0
+  wallScreenFillRatio: 0.75
+  wallScreenOffset: 0.015
+  fixToEyeLevel: 1
+  eyeLevelHeight: 1.5
+  roomManager: {fileID: 939254292}
+  wallCenter: {x: 0, y: 1.25, z: 3}
+  wallInward: {x: 0, y: 0, z: 1}
+  attachRoomWidth: 4
+  attachRoomHeight: 2.5
+  attachRoomDepth: 4
+  wallRoomWallColor: {r: 0.85, g: 0.82, b: 0.78, a: 1}
+  wallRoomFloorColor: {r: 0.55, g: 0.45, b: 0.35, a: 1}
+  wallRoomCeilingColor: {r: 0.92, g: 0.92, b: 0.9, a: 1}
+  placeDummyFurniture: 1
+  cctvPosition: {x: 2, y: 2.6, z: 2}
+  cctvRotation: {x: 40, y: 225, z: 180}
+  cctvFOV: 80
+  cctvScale: 0.12
+  droneCenter: {x: 0, y: 1.8, z: 0}
+  dronePatrolRadius: 1.2
+  droneAngularSpeed: 0.6
+  droneBobAmplitude: 0.1
+  droneCamTiltDown: 25
+  droneScale: 0.15
+  showDebugLog: 1
+--- !u!4 &1302672027
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302672025}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.34998, y: -0, z: -5.0219}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1325926550
 GameObject:
   m_ObjectHideFlags: 0
@@ -2651,3 +2779,4 @@ SceneRoots:
   - {fileID: 793617211}
   - {fileID: 146488677}
   - {fileID: 373264824}
+  - {fileID: 1302672027}
