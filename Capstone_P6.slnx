@@ -1,7 +1,4 @@
 ﻿<Solution>
-  <Project Path="Unity.Timeline.csproj" />
-  <Project Path="Meta.XR.MultiplayerBlocks.Shared.csproj" />
-  <Project Path="Unity.PlasticSCM.Editor.csproj" />
   <Project Path="MCPForUnity.Editor.csproj" />
   <Project Path="Meta.XR.BuildingBlocks.csproj" />
   <Project Path="Unity.Timeline.Editor.csproj" />
