@@ -14,6 +14,7 @@
   <Project Path="Unity.XR.OpenXR.csproj" />
   <Project Path="Oculus.Interaction.csproj" />
   <Project Path="Unity.Burst.csproj" />
+  <Project Path="Fusion.Unity.Editor.csproj" />
   <Project Path="Oculus.VR.Editor.csproj" />
   <Project Path="Unity.VisualScripting.Flow.Editor.csproj" />
   <Project Path="Oculus.VR.Scripts.Editor.csproj" />
@@ -30,6 +31,7 @@
   <Project Path="Oculus.Interaction.OVR.csproj" />
   <Project Path="Unity.VisualScripting.State.Editor.csproj" />
   <Project Path="Unity.AI.Navigation.Editor.ConversionSystem.csproj" />
+  <Project Path="Meta.XR.MultiplayerBlocks.Fusion.csproj" />
   <Project Path="Unity.Burst.CodeGen.csproj" />
   <Project Path="Meta.XR.BuildingBlocks.AIBlocks.csproj" />
   <Project Path="Unity.VisualScripting.Flow.csproj" />
@@ -60,12 +62,14 @@
   <Project Path="Meta.XR.MultiplayerBlocks.Shared.Editor.csproj" />
   <Project Path="MetaXRSimulatorCore.Editor.csproj" />
   <Project Path="Unity.InputSystem.ForUI.csproj" />
+  <Project Path="Fusion.Unity.csproj" />
   <Project Path="Meta.XR.Editor.RemoteContent.csproj" />
   <Project Path="Unity.AI.Navigation.csproj" />
   <Project Path="Unity.Collections.CodeGen.csproj" />
   <Project Path="Meta.XR.MetaWand.Editor.csproj" />
   <Project Path="MCPForUnity.Runtime.csproj" />
   <Project Path="Unity.XR.Management.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Meta.XR.Editor.Guide.About.csproj" />
   <Project Path="Unity.Mathematics.Editor.csproj" />
   <Project Path="Unity.VisualScripting.SettingsProvider.Editor.csproj" />
@@ -97,7 +101,6 @@
   <Project Path="Meta.XR.Editor.ToolingSupport.RuntimeOptimizer.csproj" />
   <Project Path="Unity.InputSystem.DocCodeSamples.csproj" />
   <Project Path="Meta.XR.Editor.EditorCoroutine.csproj" />
-  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Unity.VisualScripting.DocCodeExamples.csproj" />
   <Project Path="Unity.XR.OpenXR.TestTooling.csproj" />
   <Project Path="Unity.XR.OpenXR.Features.ConformanceAutomation.csproj" />
@@ -105,6 +108,7 @@
   <Project Path="Oculus.Interaction.InterfaceSupport.csproj" />
   <Project Path="Unity.XR.OpenXR.Features.MockRuntime.csproj" />
   <Project Path="UnityEditor.SpatialTracking.csproj" />
+  <Project Path="Unity.Fusion.CodeGen.csproj" />
   <Project Path="Unity.Collections.Editor.csproj" />
   <Project Path="Unity.XR.OpenXR.Features.OculusQuestSupport.csproj" />
 </Solution>
