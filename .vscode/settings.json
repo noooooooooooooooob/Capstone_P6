@@ -1,4 +1,13 @@
 {
+    "dotnet.defaultSolution": "Capstone_P6.slnx",
+    "dotrush.roslyn.dotnetSdkDirectory": "C:/Program Files/dotnet/sdk/9.0.306",
+    "dotrush.msbuildProperties": {
+        "DefineConstants": "UNITY_EDITOR"
+    },
+    "dotrush.roslyn.projectOrSolutionFiles": [
+        "C:/Users/User/Desktop/Unity/Capstone_P6/Capstone_P6.sln"
+    ],
+    "dotrush.roslyn.restoreProjectsBeforeLoading": false,
     "files.exclude": {
         "**/.DS_Store": true,
         "**/.git": true,
@@ -55,17 +64,5 @@
         "UserSettings/": true,
         "temp/": true,
         "Temp/": true
-    },
-    "files.associations": {
-        "*.asset": "yaml",
-        "*.meta": "yaml",
-        "*.prefab": "yaml",
-        "*.unity": "yaml"
-    },
-    "explorer.fileNesting.enabled": true,
-    "explorer.fileNesting.patterns": {
-        "*.sln": "*.csproj",
-        "*.slnx": "*.csproj"
-    },
-    "dotnet.defaultSolution": "Capstone_P6.slnx"
+    }
 }

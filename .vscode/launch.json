@@ -2,9 +2,23 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Attach to Unity Editor",
+            "type": "unity",
+            "request": "attach",
+            "path": "${workspaceFolder}/Library/EditorInstance.json"
+        },
+        {
+            "name": "Attach to Unity Player",
+            "type": "unity",
+            "request": "attach",
+            "transportArgs": {
+                "port": 56000
+            }
+        },
+        {
             "name": "Attach to Unity",
             "type": "vstuc",
             "request": "attach"
         }
-     ]
+    ]
 }
