@@ -1,11 +1,11 @@
 {
   "dependencies": {
     "com.antigravity.ide": {
-      "version": "https://github.com/prithvi-bharadwaj/Antigravity-IDE.git",
+      "version": "https://github.com/billythekidz/UnityAntigravityIDE.git",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "052001cf62c44b1af3d8bd6339939f5f2c34966d"
+      "hash": "3520075082911bf236ade261e544078a3f9bed65"
     },
     "com.meta.xr.mrutilitykit": {
       "version": "85.0.0",

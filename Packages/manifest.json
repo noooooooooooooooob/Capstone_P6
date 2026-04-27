@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.antigravity.ide": "https://github.com/prithvi-bharadwaj/Antigravity-IDE.git",
+    "com.antigravity.ide": "https://github.com/billythekidz/UnityAntigravityIDE.git",
     "com.meta.xr.mrutilitykit": "85.0.0",
     "com.meta.xr.sdk.core": "85.0.0",
     "com.meta.xr.sdk.interaction.ovr": "85.0.0",
