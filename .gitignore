@@ -98,3 +98,7 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+# Oculus Avatar2 sample assets — too large for git
+/[Aa]ssets/[Oo]culus/Avatar2_SampleAssets/
+/[Aa]ssets/[Oo]culus/Avatar2_SampleAssets.meta

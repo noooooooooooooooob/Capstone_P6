@@ -46,7 +46,7 @@ public class VRKeyboard : MonoBehaviour
     {
         var vlg = keyContainer.GetComponent<VerticalLayoutGroup>();
         if (vlg == null) vlg = keyContainer.gameObject.AddComponent<VerticalLayoutGroup>();
-        vlg.childControlWidth = false;
+        vlg.childControlWidth = true;
         vlg.childControlHeight = false;
         vlg.childForceExpandWidth = false;
         vlg.childForceExpandHeight = false;
