@@ -4,12 +4,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 프로젝트 개요
 
-**비대칭 협력 멀티플레이어 MR 방탈출 게임** — Meta Quest 3 전용 캡스톤 프로젝트.
+**비대칭 협력 멀티플레이어 VR 방탈출 게임** — Meta Quest 3 전용 캡스톤 프로젝트.
 
-- Player A와 Player B는 각자 분리된 실제 방(Mixed Reality)에 있음
-- **Player A의 실제 방**을 Meta Scene API로 스캔하여 게임 환경으로 변환, Photon을 통해 Player B에게 전송
-- Player B는 수신된 Mesh 데이터로 Player A의 방을 VR 공간에 재구성하여 게임 진행
-- 각 플레이어는 자기 방의 오브젝트는 직접 조작할 수 있지만, 상대방 방 오브젝트는 조작 불가
+- Player A와 Player B는 각자 분리된 VR 환경에 위치
+- 각 플레이어는 자기 환경의 오브젝트는 직접 조작 가능, 상대방 환경 오브젝트는 직접 조작 불가
 - 퍼즐은 두 플레이어가 서로 소통하고 협력해야만 풀 수 있도록 설계 (비대칭 협력)
 - 각 스테이지마다 통신 채널이 변화하며 퍼즐 복잡도 상승 (유선전화 → 음성전용 → 시각전용 → 워키토키)
 - **Product name:** Capstone
@@ -17,9 +15,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Render pipeline:** URP (Universal Render Pipeline), Mobile/PC 렌더러 분리 구성
 - **Meta XR SDK:** 85.0.0, Horizon OS SDK target 85 / min 60
 
+> **Note:** 초기 구상은 MR(Passthrough + Scene API로 실제 방 스캔/공유) 기반이었으나, 안정성 문제로 2026-04-28 순수 VR로 전환. 두 플레이어의 비대칭 환경을 어떤 방식(프리셋 / 절차적 생성 등)으로 구현할지는 미결정.
+
 ## 핵심 패키지
 
-- `com.meta.xr.sdk.core` 85.0.0 — Meta XR Core SDK (Passthrough, Scene Understanding, OVR 등)
+- `com.meta.xr.sdk.core` 85.0.0 — Meta XR Core SDK (OVR 카메라 리그, 핸드트래킹 등). VR만 사용 — Passthrough/Scene Understanding 기능은 사용 안 함.
 - `com.meta.xr.sdk.interaction.ovr` 85.0.0 — Meta Interaction SDK (손 추적, 컨트롤러, Ray Interactor)
 - `com.unity.xr.openxr` 1.16.1 — OpenXR 백엔드
 - `com.unity.inputsystem` 1.19.0 — New Input System
@@ -32,7 +32,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```
 Assets/
-  Scripts/          # 커스텀 C# 스크립트 (현재: RoomBuildTest.cs 플레이스홀더)
+  Scripts/          # 커스텀 C# 스크립트 (UI/RoomMatchingUI.cs, UI/VRKeyboard.cs)
   Scenes/           # Unity 씬 (SampleScene.unity)
   Oculus/           # OculusProjectConfig.asset — Meta 프로젝트 설정
   Plugins/Android/  # AndroidManifest.xml — Oculus VR 인텐트 필터, 디바이스 지원 플래그
@@ -40,6 +40,7 @@ Assets/
   Settings/         # URP 렌더러/파이프라인 에셋 (Mobile_RPAsset, PC_RPAsset)
   XR/               # XR 관리 설정 및 로더 구성
   StreamingAssets/  # 런타임 스트리밍 에셋
+  Photon/           # Photon Fusion 2 SDK
 ```
 
 ## 개발 워크플로우
@@ -60,19 +61,18 @@ Assets/
 - Meta Interaction SDK의 Hand/Controller 프리팹과 Ray Interactor를 우선 활용, 커스텀 입력 처리 최소화
 - **퍼즐/스테이지는 모듈화**하여 설계 — 추가 콘텐츠 삽입이 용이한 구조 유지
 
-## MR / Meta SDK 핵심 사항
+## VR / Meta SDK 핵심 사항
 
 - **Hand Tracking:** 활성화됨 (`handTrackingSupport: 1`)
-- **Scene Understanding (방 스캔):** 현재 비활성화 — `OculusProjectConfig.asset`에서 `sceneSupport: 1`로 변경 필요
-- **Passthrough:** 현재 비활성화 — `insightPassthroughEnabled: 1`, `_insightPassthroughSupport: 1`로 변경 필요
-- 위 두 기능은 반드시 `OculusProjectConfig.asset`에서 활성화해야 하며, 코드로만 처리하면 빌드 시 누락됨
+- **Passthrough / Scene Understanding:** 사용 안 함 — `OculusProjectConfig.asset`에서 비활성화 유지 (`insightPassthroughEnabled: 0`, `_insightPassthroughSupport: 0`, `sceneSupport: 0`)
+- MR 관련 기능을 다시 활성화하지 말 것 (안정성 문제로 VR 전환 결정)
 
 ## 게임 아키텍처 방향 (설계 기준)
 
 ```
 [Player A Device]                          [Player B Device]
-  실제 방 (Passthrough MR)                   Player A 방 가상 렌더링 (VR)
-  Meta Scene API → Mesh 데이터 추출          수신된 Mesh로 방 환경 재구성
+  VR 환경 A                                  VR 환경 B
+  (자기 방 오브젝트 직접 조작 가능)           (자기 방 오브젝트 직접 조작 가능)
         ↓                                         ↑
         └──────── Photon Fusion 2 네트워크 동기화 ─┘
 
@@ -80,20 +80,19 @@ Assets/
 통신 채널 (Photon Voice 2) → 스테이지별 제약 적용
 ```
 
-- **Player A의 방 구조(Scene Mesh)**는 세션 시작 시 네트워크로 Player B에게 공유
+- 두 플레이어의 VR 환경 구성 방식(프리셋 씬 / 절차적 생성 등)은 미결정
 - 퍼즐 오브젝트 상태(위치, 활성화 여부 등)는 NetworkObject로 동기화
-- 플레이어가 상대방 방 오브젝트와 인터랙션하는 것은 **네트워크 RPC**로 처리
-- 각 방에는 서로 다른 퍼즐 조각/정보가 배치되어 반드시 협동이 필요한 구조로 설계
+- 플레이어가 상대방 환경 오브젝트와 간접적으로 영향을 주는 인터랙션은 **네트워크 RPC**로 처리
+- 각 환경에는 서로 다른 퍼즐 조각/정보가 배치되어 반드시 협동이 필요한 구조로 설계
 
 ## 기능적 요구사항 (구현 목표)
 
-### 방 스캔 및 네트워킹
+### VR 환경 및 네트워킹
 
 | 기능 | 상세 설명 | 목표 지표 |
 |------|-----------|-----------|
-| 실제 방 스캔 | Meta Scene API로 Player A의 물리 공간(벽, 바닥, 천장, 가구) 스캔 후 Mesh 데이터 추출 | 스캔 완료 < 30초 |
-| 방 환경 재건 | Player B 측에서 수신된 Mesh 데이터로 동일한 방 레이아웃을 VR 공간에 재구성 | 공간 정확도 ≥ 95% |
-| 퍼즐 오브젝트 배치 | 스캔된 공간 정보 기반으로 퍼즐 오브젝트 자동 및 수동 배치 | 배치 성공률 ≥ 90% |
+| VR 환경 구성 | 각 플레이어에게 비대칭으로 다른 VR 환경 제공 (프리셋/절차적 방식 미정) | — |
+| 퍼즐 오브젝트 배치 | 환경 내 퍼즐 오브젝트 배치 — 비대칭 협력 구조 보장 | 배치 성공률 ≥ 90% |
 | 실시간 상태 동기화 | 플레이어 위치, 애니메이션, 퍼즐 상태를 Photon Fusion 2로 동기화 | 동기화 지연 < 100ms |
 | 매칭 및 세션 관리 | 2인 매칭, 방 생성/참가, 세션 상태(대기/진행/완료) 관리 | 매칭 대기 < 10초 |
 
@@ -117,7 +116,6 @@ Assets/
 
 - **프레임 레이트:** Quest 3 기준 72fps 이상 안정적 유지
 - **네트워크 지연:** RTT ≤ 100ms, 동기화 손실 < 0.1%
-- **방 스캔 처리:** Mesh 생성까지 ≤ 30초
 - **VR Comfort:** IPD 조정 지원, 로코모션 옵션(텔레포트 / 스무스 이동) 제공
 - **튜토리얼:** 첫 플레이 온보딩 ≤ 5분, 조작 숙련도 확보
 - **확장성:** 퍼즐/스테이지 모듈화 → 추가 콘텐츠 삽입이 용이한 구조
@@ -125,7 +123,7 @@ Assets/
 ## UX 화면 흐름
 
 ```
-앱 실행(Splash) → 메인 메뉴 → 매칭 로비 → 방 스캔(Player A) → 스테이지 시작 → 게임 플레이 → 결과 화면
+앱 실행(Splash) → 메인 메뉴 → 매칭 로비 → 스테이지 시작 → 게임 플레이 → 결과 화면
 ```
 
 - **메인 메뉴:** 서버 생성 / 서버 찾기
