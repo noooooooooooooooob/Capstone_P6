@@ -2,6 +2,9 @@
   "dependencies": {
     "com.antigravity.ide": "https://github.com/billythekidz/UnityAntigravityIDE.git",
     "com.meta.xr.mrutilitykit": "85.0.0",
+    "com.meta.xr.sdk.all": "201.0.0",
+    "com.meta.xr.sdk.avatars": "40.0.1",
+    "com.meta.xr.sdk.avatars.sample.assets": "40.0.1",
     "com.meta.xr.sdk.core": "85.0.0",
     "com.meta.xr.sdk.interaction.ovr": "85.0.0",
     "com.unity.ai.navigation": "2.0.11",

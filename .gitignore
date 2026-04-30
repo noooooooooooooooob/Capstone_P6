@@ -98,3 +98,9 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+# Meta Avatar SDK preset asset packages (>100MB, re-importable from SDK Samples)
+/[Aa]ssets/Oculus/Avatar2_SampleAssets/SampleAssets/SampleAssets/PresetAvatars_Quest.zip
+/[Aa]ssets/Oculus/Avatar2_SampleAssets/SampleAssets/SampleAssets/PresetAvatars_Quest.zip.meta
+/[Aa]ssets/Oculus/Avatar2_SampleAssets/SampleAssets/SampleAssets/PresetAvatars_Rift.zip
+/[Aa]ssets/Oculus/Avatar2_SampleAssets/SampleAssets/SampleAssets/PresetAvatars_Rift.zip.meta
