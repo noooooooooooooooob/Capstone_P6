@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git ls-tree *)",
+      "Bash(git commit -m ' *)",
+      "Bash(echo \"---commit exit: $?---\")",
+      "Bash(git stash *)",
+      "Bash(awk -F': ' '$2 > 1325000000 && $2 < 1326000000')",
+      "Bash(git reset *)",
+      "Bash(rm -f .git/unityyamlmerge-wrapper.sh)",
+      "Bash(git config *)"
+    ]
+  }
+}
