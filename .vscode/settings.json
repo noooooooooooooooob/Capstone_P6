@@ -1,7 +1,7 @@
 {
     "dotnet.defaultSolution": "Capstone_P6.slnx",
     "dotnet.dotnetPath": "C:/Program Files/dotnet/dotnet.exe",
-    "dotrush.roslyn.dotnetSdkDirectory": "C:/Program Files/dotnet/sdk/9.0.306",
+    "dotrush.roslyn.dotnetSdkDirectory": "C:/Program Files/dotnet/sdk/8.0.402",
     "dotrush.msbuildProperties": {
         "DefineConstants": "UNITY_EDITOR"
     },
