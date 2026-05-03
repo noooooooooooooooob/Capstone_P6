@@ -48,11 +48,11 @@ public class RoomMatchingUI : MonoBehaviour
         await StartSession(GameMode.Client, code);
     }
 
-    public void LeaveRoom()
+    public async void LeaveRoom()
     {
         if (_activeRunner != null && _activeRunner.IsRunning)
         {
-            _activeRunner.Shutdown();
+            await _activeRunner.Shutdown();
         }
         _activeRunner = null;
         SetStatus("Left room.");
@@ -69,7 +69,7 @@ public class RoomMatchingUI : MonoBehaviour
 
         if (_activeRunner != null && _activeRunner.IsRunning)
         {
-            _activeRunner.Shutdown();
+            await _activeRunner.Shutdown();
             _activeRunner = null;
         }
 

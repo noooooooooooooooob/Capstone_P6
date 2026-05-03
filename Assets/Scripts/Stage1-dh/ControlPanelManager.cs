@@ -32,7 +32,7 @@ public class ControlPanelManager : MonoBehaviour
         if (isStabilizing)
         {
             // 배터리가 있을 때만 작동
-            if (battery > 0)
+            if (battery > 0 && stability <100)
             {
                 battery -= batteryDrainRate * Time.deltaTime;
                 stability += stabilityGainRate * Time.deltaTime;
@@ -60,7 +60,7 @@ public class ControlPanelManager : MonoBehaviour
         UpdateUI();
     }
 
-    void UpdateUI()
+    public void UpdateUI()
     {
         batteryText.text = $"Battery: {battery:F0}%";
         stabilityText.text = $"Stability: {stability:F0}%";
