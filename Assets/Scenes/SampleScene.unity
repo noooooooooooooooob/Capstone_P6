@@ -17113,6 +17113,8 @@ GameObject:
   - component: {fileID: 1900100201}
   - component: {fileID: 1900100202}
   - component: {fileID: 1900100203}
+  - component: {fileID: 1900100204}
+  - component: {fileID: 1900100205}
   m_Layer: 0
   m_Name: ValveHandle
   m_TagString: Untagged
@@ -17171,12 +17173,51 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6e893b503bf8bc4e848f5b21e16dfce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   valve: {fileID: 1900100104}
   pivot: {fileID: 1900100201}
   rotationAxisLocal: {x: 0, y: 0, z: 1}
   minPlanarRadius: 0.02
+--- !u!135 &1900100204
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900100200}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.234
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1900100205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900100200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b08b1e024822847adb03a59614b233, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  valveGrab: {fileID: 1900100203}
+  leftControllerAnchor: {fileID: 0}
+  rightControllerAnchor: {fileID: 0}
+  grabButton: 2
+  grabThreshold: 0.6
+  useDistanceCheckFallback: 1
 --- !u!1 &1900100210
 GameObject:
   m_ObjectHideFlags: 0

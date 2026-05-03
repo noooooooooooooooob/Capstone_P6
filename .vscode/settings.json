@@ -6,7 +6,7 @@
         "DefineConstants": "UNITY_EDITOR"
     },
     "dotrush.roslyn.projectOrSolutionFiles": [
-        "Z:/JIN/Documents/sejong/capstone/gemini_two_player/Capstone_P6/Capstone_P6.sln"
+        "C:/test_cap/Capstone_P6/Capstone_P6.sln"
     ],
     "dotrush.roslyn.restoreProjectsBeforeLoading": false,
     "files.exclude": {

@@ -108,10 +108,17 @@ namespace Capstone.EditorTools
                 DestroyChildCollider(spoke);
             }
 
-            // 5-3. 핸들 그랩용 콜라이더 (휠 림 두께만큼의 박스)
+            // 5-3. 핸들 그랩용 콜라이더 (휠 림 두께만큼의 박스 — 물리 충돌용)
             var handleCol = handleGo.AddComponent<BoxCollider>();
             handleCol.size = new Vector3(WheelRadius * 2.2f, WheelRadius * 2.2f, 0.06f);
             handleCol.isTrigger = false;
+
+            // 5-4. 컨트롤러 진입 감지용 Trigger Sphere
+            //      ControllerValveGrabber가 [RequireComponent(typeof(Collider))]를 요구하고
+            //      Trigger 콜라이더로 anchor 진입을 감지한다.
+            var grabZone = handleGo.AddComponent<SphereCollider>();
+            grabZone.radius = WheelRadius * 1.3f;
+            grabZone.isTrigger = true;
 
             // === 6. 컴포넌트 와이어링 ==========================================
             // Valve 루트: NetworkObject + Rigidbody(kinematic) + RadiatorValve
@@ -141,14 +148,24 @@ namespace Capstone.EditorTools
                 sg.ApplyModifiedPropertiesWithoutUndo();
             }
 
+            // ValveHandle: 컨트롤러 입력 → BeginGrab/EndGrab 디스패처
+            var ctrlGrab = Undo.AddComponent<ControllerValveGrabber>(handleGo);
+            using (var sc = new SerializedObject(ctrlGrab))
+            {
+                sc.FindProperty("valveGrab").objectReferenceValue = grab;
+                sc.ApplyModifiedPropertiesWithoutUndo();
+            }
+
             Undo.CollapseUndoOperations(undoGroup);
             Selection.activeGameObject = valveGo;
             EditorGUIUtility.PingObject(valveGo);
             EditorSceneSave();
 
-            Debug.Log("[Capstone] 라디에이터 배관/밸브 생성 완료. " +
-                      "ValveHandle에 Meta XR Grabbable/HandGrabInteractable을 추가한 뒤 " +
-                      "WhenSelect → ValveRotationGrab.BeginGrab, WhenUnselect → EndGrab 으로 연결하세요.");
+            Debug.Log("[Capstone] 라디에이터 배관/밸브 생성 완료.\n" +
+                      "  • 컨트롤러 사용: 손을 휠 가까이 가져가 Grip(또는 Trigger)을 누른 채 손목을 돌리세요.\n" +
+                      "  • Meta Interaction SDK를 쓰는 경우: ValveHandle에 HandGrabInteractable 추가 후 " +
+                      "InteractableUnityEventWrapper의 WhenSelect → ValveRotationGrab.BeginGrab(Transform), " +
+                      "WhenUnselect → ValveRotationGrab.EndGrab 로 연결하면 손추적도 함께 동작합니다.");
         }
 
         // ---------- 헬퍼 -----------------------------------------------------
