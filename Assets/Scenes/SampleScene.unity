@@ -14242,6 +14242,7 @@ GameObject:
   - component: {fileID: 1584509222}
   - component: {fileID: 1584509221}
   - component: {fileID: 1584509220}
+  - component: {fileID: 1584509226}
   m_Layer: 0
   m_Name: Radiator
   m_TagString: Untagged
@@ -14586,6 +14587,30 @@ Transform:
   - {fileID: 1900100101}
   m_Father: {fileID: 109704906}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1584509226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584509219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c3d5e9b41a2b34f6c8d2e1f5a609b87, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  valve: {fileID: 1900100104}
+  fogOrigin: {fileID: 1584509225}
+  maxRadius: 1.5
+  lifetime: 4
+  startSize: 0.6
+  startSizeRandom: 0.4
+  upwardDrift: 0.15
+  maxEmissionRate: 80
+  maxAlpha: 0.35
+  fogColor: {r: 0.85, g: 0.88, b: 0.92, a: 1}
+  smoothing: 0.1
+  stopThreshold: 0.01
 --- !u!1 &1585595044
 GameObject:
   m_ObjectHideFlags: 0

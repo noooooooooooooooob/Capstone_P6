@@ -36,6 +36,13 @@ namespace Capstone.Puzzle
         [Networked] public bool IsClosed { get; set; }
         // =====================================================================
 
+        /// <summary>완전 잠금까지 필요한 누적 회전 각도(도). 외부 비주얼이 진행도 계산에 사용.</summary>
+        public float FullCloseAngle => fullCloseAngle;
+
+        /// <summary>0(완전 열림) ~ 1(완전 잠금) 정규화 진행도. 비주얼/오디오 효과 연동용.</summary>
+        public float NormalizedClose =>
+            fullCloseAngle <= Mathf.Epsilon ? 0f : Mathf.Clamp01(ValveAngle / fullCloseAngle);
+
         public override void Spawned()
         {
             ApplyVisual();
