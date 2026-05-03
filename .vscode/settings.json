@@ -6,7 +6,7 @@
         "DefineConstants": "UNITY_EDITOR"
     },
     "dotrush.roslyn.projectOrSolutionFiles": [
-        "C:/Users/User/Desktop/Unity/Capstone_P6/Capstone_P6.sln"
+        "C:/C/Capstone_P6/Capstone_P6.sln"
     ],
     "dotrush.roslyn.restoreProjectsBeforeLoading": false,
     "files.exclude": {
